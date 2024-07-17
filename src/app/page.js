@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function page() {
   return (
-    <div className='text-red-800'>page</div>
+    <h1 className='text-red-800'>Home page</h1>
   )
 }
