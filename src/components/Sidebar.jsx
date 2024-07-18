@@ -14,7 +14,7 @@ export default function Sidebar() {
 
 
             </Link>
-            <Link href="/" className="flex items-centerp-3 hover:bg-slate-200 rounded-full transition-all
+            <Link href="/" className="flex items-center p-3 hover:bg-slate-200 rounded-full transition-all
             duration-400 gap-2 w-fit">
                 <HiHome className="w-10 h-10 cursor-pointer" />
                 <span className="font-bold hidden xl:inline">
@@ -23,7 +23,7 @@ export default function Sidebar() {
             </Link>
             <button className="bg-blue-500 text-white
             font-bold rounded-full px-4 py-2 mt-4 hover:bg-blue-600
-            transition-all duration-200 hidden xl:inline">
+            transition-all duration-200 w-48 h-9 hidden xl:inline">
                 Sign In
             </button>
 
