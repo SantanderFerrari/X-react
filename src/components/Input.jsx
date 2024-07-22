@@ -67,12 +67,13 @@ export default function Input() {
             text,
             profileImg: session.user.image,
             timestamp: serverTimestamp(),
-
+            image: imageFileUrl,
         });
         setPostLoading(false);
         setText('');
         setImageFileUrl(null);
         setSelectedFile(null);
+        location.reload();
     };
     if (!session) return null;
     return (
