@@ -1,73 +1,89 @@
-'use client';
+"use client"
 
 import {
-    collection,
-    deleteDoc,
-    doc,
+    HiOutlineChat,
+    HiOutlineHeart,
+    HiOutlineTrash,
+    HiHeart
+}
+    from "react-icons/hi"
+
+import {
+    signIn,
+    useSession
+}
+    from 'next-auth/react';
+
+import {
     getFirestore,
-    onSnapshot,
+    serverTimestamp,
+    doc,
     setDoc,
-} from 'firebase/firestore';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
+    onSnapshot,
+    collection,
+}
+    from "firebase/firestore";
+
 import { app } from '../firebase';
 
-export default function LikeSection({ id }) {
+import {
+    useEffect,
+    useState
+}
+    from "react";
+
+export default function Icons({ id }) {
     const { data: session } = useSession();
-    const [hasLiked, setHasLiked] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
     const [likes, setLikes] = useState([]);
     const db = getFirestore(app);
-
-    useEffect(() => {
-        onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) => {
-            setLikes(snapshot.docs);
-        });
-    }, [db]);
-
-    useEffect(() => {
-        if (likes.findIndex((like) => like.id === session?.user?.uid) !== -1) {
-            setHasLiked(true);
+    const likePost = async () => {
+        if (session) {
+            if (isLiked) {
+                await deleteDoc(doc(db, 'posts', id, 'likes', session?.user.uid));
+            } else {
+                await setDoc(doc(db, 'posts', id, 'likes', session.user.uid), {
+                    username: session.user.username,
+                    timestamp: serverTimestamp(),
+                });
+            }
         } else {
-            setHasLiked(false);
+            signIn();
         }
-    }, [likes]);
+    };
 
-    async function likePost() {
-        console.log(db, id, 'likes', session?.user?.uid);
-        if (hasLiked) {
-            await deleteDoc(doc(db, 'posts', id, 'likes', session?.user?.uid));
-        } else {
-            await setDoc(doc(db, 'posts', id, 'likes', session?.user?.uid), {
-                username: session?.user?.username,
+    useEffect(
+        () => {
+            onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) => {
+                setLikes(snapshot.docs);
             });
-        }
-    }
+        }, [db]);
 
+    useEffect(() => {
+        setIsLiked(likes.findIndex((like) => like.id === session?.user?.uid)
+            !== -1);
+    }, [likes]);
     return (
-        <div>
-            {session && (
-                <div className='flex border-t border-gray-100 px-4 pt-4'>
-                    <div className='flex items-center gap-2'>
-                        {hasLiked ? (
-                            <HiHeart
-                                onClick={likePost}
-                                className='text-red-500 cursor-pointer text-3xl  hover:scale-125 transition-transform duration-200 ease-out'
-                            />
-                        ) : (
-                            <HiOutlineHeart
-                                onClick={likePost}
-                                className='cursor-pointer text-3xl  hover:scale-125 transition-transform duration-200 ease-out'
-                            />
-                        )}
-                        {likes.length > 0 && (
-                            <p className='text-gray-500'>
-                                {likes.length} {likes.length === 1 ? 'like' : 'likes'}
-                            </p>
-                        )}
-                    </div>
-                </div>
-            )}
+        <div className="flex justify-between  p-2 text-gray-300">
+            <HiOutlineChat
+                className="h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-outp-2 hover:text-sky-500 hover:bg-sky-100" />
+            <div className="flex items-center">
+                {isLiked ?
+                    (
+                        <HiHeart
+                            onClick={likePost}
+                            className="h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-outp-2 hover:text-red-500 hover:bg-red-100" />
+                    ) : (
+                        <HiOutlineHeart
+                            onClick={likePost}
+                            className="h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-outp-2 hover:text-red-500 hover:bg-red-100" />
+                    )}
+                {likes.length > 0 && <span className={`text-xs ${isLiked && 'text-red-600'}`}>{likes.length}</span>}
+            </div>
+            <HiOutlineTrash
+                className="h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-outp-2 hover:text-red-500 hover:bg-red-100" />
+
         </div>
-    );
+    )
 }
+
