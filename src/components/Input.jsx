@@ -24,6 +24,8 @@ export default function Input() {
         }
     }, [selectedFile]);
 
+
+
     const addImageToPost = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -85,6 +87,8 @@ export default function Input() {
             setPostLoading(false);
         }
     };
+
+
 
     if (!session) return null;
 

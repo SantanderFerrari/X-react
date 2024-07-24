@@ -45,13 +45,8 @@ export default function Comment({ comment, commentId, originalPostId }) {
 
     useEffect(() => {
         setIsLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1);
-    }, [likes, session]); // Added session
+    }, [likes]); // Added session
 
-    useEffect(() => {
-        if (selectedFile) {
-            uploadImageToStorage();
-        }
-    }, [selectedFile, uploadImageToStorage]); // Added uploadImageToStorage
 
     return (
         <div className="flex p-3 border-b border-gray-200 pl-10">
