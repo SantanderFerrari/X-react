@@ -32,7 +32,7 @@ import {
     useState
 }
     from "react";
-import { modalState } from "@/atom/modalAtom";
+import { modalState, postIdState } from "@/atom/modalAtom";
 import { useRecoilState } from 'recoil';
 
 export default function Icons({ id, uid }) {
@@ -40,6 +40,7 @@ export default function Icons({ id, uid }) {
     const [isLiked, setIsLiked] = useState(false);
     const [likes, setLikes] = useState([]);
     const [open, setOpen] = useRecoilState(modalState);
+    const [postId, setPostId] = useRecoilState(postIdState);
     const db = getFirestore(app);
     const likePost = async () => {
         if (session) {
@@ -86,7 +87,14 @@ export default function Icons({ id, uid }) {
         <div className="flex justify-between  p-2 text-gray-300">
             <HiOutlineChat
                 className="h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-outp-2 hover:text-sky-500 hover:bg-sky-100"
-                onClick={() => setOpen(!open)}
+                onClick={() => {
+                    if (!session) {
+                        signIn()
+                    } else {
+                        setOpen(!open);
+                        setPostId(id);
+                    }
+                }}
             />
             <div className="flex items-center">
                 {isLiked ?
