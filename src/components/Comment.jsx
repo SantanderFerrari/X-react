@@ -13,7 +13,13 @@ export default function Comment({ comment, commentId, originalPostId }) {
     const db = getFirestore(app);
 
     useEffect(() => {
-    }, [commentId, originalPostId])
+        const unsubscribe = onSnapshot(collection(db, 'posts', originalPostId, 'comments', commentId, 'likes'),
+            (snapshot) => {
+                setLikes(snapshot.docs);
+            });
+
+        return () => unsubscribe();
+    }, [db, originalPostId, commentId]);
 
     const likePost = async () => {
         if (session) {
@@ -34,12 +40,19 @@ export default function Comment({ comment, commentId, originalPostId }) {
             (snapshot) => {
                 setLikes(snapshot.docs);
             });
-    }, [db]);
+    }, [db, commentId, originalPostId]); // Added commentId and originalPostId
+
 
     useEffect(() => {
-        setIsLiked(likes.findIndex((like) => like.id === session?.user?.uid)
-            !== -1);
-    }, [likes]);
+        setIsLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1);
+    }, [likes, session]); // Added session
+
+    useEffect(() => {
+        if (selectedFile) {
+            uploadImageToStorage();
+        }
+    }, [selectedFile, uploadImageToStorage]); // Added uploadImageToStorage
+
     return (
         <div className="flex p-3 border-b border-gray-200 pl-10">
             <Image
@@ -68,11 +81,26 @@ export default function Comment({ comment, commentId, originalPostId }) {
                                 onClick={likePost}
                                 className="h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-outp-2 hover:text-red-500 hover:bg-red-100" />
                         )}
-                    {likes.length > 0 && (<span className={`text-xs ${isLiked && 'text-red-600'}`}>{likes.length}</span>)}
+                    {likes.length > 0 && (
+                        <span
+                            className={`text-xs ${isLiked && 'text-red-600'}`}>
+                            {likes.length}
+                        </span>
+                    )}
 
-                    <Image src={comment?.image} className="rounded-2xl mr-2 " ></Image>
+                    {comment?.image && (
+                        <Image
+                            src={comment?.image}
+                            alt="comment-image"
+                            className="rounded-2xl mr-2"
 
-                    <Icons commentId={commentId} uid={comment.uid} />
+                        />
+                    )}
+
+                    <Icons
+                        commentId={commentId}
+                        uid={comment.uid}
+                    />
 
                 </div>
 
