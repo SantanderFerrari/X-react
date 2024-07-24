@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
     HiOutlineChat,
@@ -43,6 +43,7 @@ export default function Icons({ id, uid }) {
     const [open, setOpen] = useRecoilState(modalState);
     const [comments, setComments] = useState([]);
     const [postId, setPostId] = useRecoilState(postIdState);
+
     const db = getFirestore(app);
     const likePost = async () => {
         if (session) {
@@ -59,16 +60,15 @@ export default function Icons({ id, uid }) {
         }
     };
 
-    useEffect(
-        () => {
-            onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) => {
-                setLikes(snapshot.docs);
-            });
-        }, [db]);
+    useEffect(() => {
+        onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) => {
+            setLikes(snapshot.docs);
+        });
+    }, [db]);
 
     useEffect(() => {
         setIsLiked(likes.findIndex((like) => like.id === session?.user?.uid)
-            !== -1);
+            != -1);
     }, [likes]);
 
     const deletePost = async () => {
@@ -92,6 +92,7 @@ export default function Icons({ id, uid }) {
             });
         return () => unsubscribe();
     }, [db, id]);
+
 
     return (
         <div className="flex justify-between  p-2 text-gray-300">

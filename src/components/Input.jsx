@@ -6,6 +6,7 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import { app } from '../firebase';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { addDoc, collection, getFirestore, serverTimestamp } from 'firebase/firestore';
+import Image from "next/image";
 
 export default function Input() {
 
@@ -79,7 +80,7 @@ export default function Input() {
     return (
         <div className="flex border-b border-gray-200 
         p-3 space-x-3 w-full">
-            <img src={session.user.image}
+            <Image src={session.user.image}
                 alt="user-img"
                 className="h-11 w-11 rounded-full cursor-pointer
             hover:brightness-90"/>
@@ -94,7 +95,7 @@ export default function Input() {
                     onChange={(e) => setText(e.target.value)}
                 />
                 {selectedFile && (
-                    <img src={imageFileUrl}
+                    <Image src={imageFileUrl}
                         alt='image'
                         className={`w-full max-h-[250px]
                          object-cover cursor-pointer

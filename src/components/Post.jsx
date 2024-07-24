@@ -1,11 +1,12 @@
 import Link from "next/link"
 import { HiDotsHorizontal } from "react-icons/hi"
 import Icons from "./Icons"
+import Image from "next/image"
 
 export default function Post({ post, id }) {
     return (
         <div className="flex p-3 border-b border-gray-200">
-            <img
+            <Image
                 src={post?.profileImg}
                 alt="user-img"
                 className="h-11 w-11 rounded-full mr-4"
@@ -23,7 +24,7 @@ export default function Post({ post, id }) {
                     <p className="text-gray-700 text-sm my-3">{post?.text}</p>
                 </Link>
                 <Link href={`/posts/${id}`}>
-                    <img src={post?.image} className="rounded-2xl mr-2 " ></img>
+                    <Image src={post?.image} className="rounded-2xl mr-2 " ></Image>
                 </Link>
                 <Icons id={id} uid={post.uid} />
             </div>

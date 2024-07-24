@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import React from "react";
+import Image from "next/image";
 
 export default function News() {
     const [news, setNews] = useState([]);
@@ -16,7 +18,7 @@ export default function News() {
 
     return (
         <div className='p-2 text-gray-800 space-y-3 bg-gray-100 rounded-xl pt-2'>
-            <h4 className="font-bold text-xl px-4">What's happening ?</h4>
+            <h4 className="font-bold text-xl px-4">What is happening ?</h4>
             {news.slice(0, articleNum).map((article) => (
                 <div key={article.url}>
                     <a href={article.url} target='_blank'>
@@ -25,7 +27,7 @@ export default function News() {
                                 <h6 className="text-sm font-extrabold">{article.title}</h6>
                                 <p className="text-sm font-medium text-gray-500">{article.source.name}</p>
                             </div>
-                            <img
+                            <Image
                                 src={article.urlToImage}
 
                                 width={70}
