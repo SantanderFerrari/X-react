@@ -126,7 +126,7 @@ export default function Icons({ id, uid }) {
                             onClick={likePost}
                             className="h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-outp-2 hover:text-red-500 hover:bg-red-100" />
                     )}
-                {likes.length > 0 && <span className={`text-xs ${isLiked && 'text-red-600'}`}>{likes.length}</span>}
+                {likes.length > 0 && (<span className={`text-xs ${isLiked && 'text-red-600'}`}>{likes.length}</span>)}
             </div>
             {session?.user?.uid === uid && (
                 <HiOutlineTrash
