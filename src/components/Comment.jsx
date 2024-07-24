@@ -1,0 +1,32 @@
+"use client";
+
+import { HiDotsHorizontal } from "react-icons/hi";
+import Icons from "./Icons";
+
+export default function Comment({ comment, id }) {
+    return (
+        <div className="flex p-3 border-b border-gray-200 pl-10">
+            <img
+                src={comment?.userImg}
+                alt="user-img"
+                className="h-9 w-9 rounded-full mr-4"
+            />
+            <div className="flex-1">
+                <div className="flex items-center justify-between">
+                    <div className="fex items-center space-x-1 whitespace-nowrap">
+                        <h4 className="font-bold text-sx truncate">{comment?.name}</h4>
+                        <span className="text-xs truncate">@{comment?.username}</span>
+                    </div>
+                    <HiDotsHorizontal
+                        className="text-sm " />
+                </div>
+                <p className="text-gray-700 text-xs my-3">{comment?.comment}</p>
+
+
+                <img src={post?.image} className="rounded-2xl mr-2 " ></img>
+
+                <Icons id={id} uid={post.uid} />
+            </div>
+        </div>
+    )
+}
