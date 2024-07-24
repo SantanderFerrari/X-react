@@ -1,19 +1,26 @@
-import Feed from '@/components/Feed'
-import Input from '@/components/Input'
-import React from 'react'
 
-export default function page() {
-  return (
-<div className='max-w-2xl mx-auto border-r border-l min-h-screen '>
-    <div className='py-2 px-3 sticky top-0 z-50
-     bg-white border-b border-gray-200'>
-       <h2 className='text-lg sm:text-xl 
-       font-bold'>
-           Home 
-       </h2>
-     </div>
-    <Input/>
-    <Feed/>
+import { app } from '../../../firebase';
+import { doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
+import { HiArrowLeft } from 'react-icons/hi';
+import Link from 'next/link';
+import Post from '@/components/Post';
+
+export default async function PostPage({params}) {
+  
+  const db = getFirestore(app);
+  let data={};
+  const querySnapshot= await getDoc(doc(db, 'posts', params.id));
+  data = { ...querySnapshot.data(), id: querySnapshot.id };
+
+    return (
+<div className='max-w-xl mx-auto border-r border-l min-h-screen'>
+<div className='flex items-center space-x-2 px-2 py-3 sticky top-0 z-5- bg-white vorder-b border-gray-200'> 
+<Link href={'/'} className='hover:bg-gray-500 rounded-full p-2'>
+  <HiArrowLeft className='h-5 w-5 '/>
+  </Link>
+<h2 className='sm:text-lg'>Back</h2>
 </div>
-  )
+  <Post post={data} id={data.id}/>
+</div>
+  );
 }
