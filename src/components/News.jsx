@@ -27,7 +27,7 @@ export default function News() {
                                 <h6 className="text-sm font-extrabold">{article.title}</h6>
                                 <p className="text-sm font-medium text-gray-500">{article.source.name}</p>
                             </div>
-                            <Image
+                            <img
                                 src={article.urlToImage}
 
                                 width={70}

@@ -68,7 +68,7 @@ export default function CommentModal() {
                         </div>
                         <div className='p-2 flex items-center space-x-1 relative'>
                             <span className='w-0.5 h-full z-[-1] absolute left-8 top-11 bg-gray-300' />
-                            <Image
+                            <img
                                 src={post?.profileImg}
                                 alt='post-profile-img'
                                 className='h-11 w-11 rounded-full mr-4'
@@ -88,7 +88,7 @@ export default function CommentModal() {
                             {post?.text}
                         </p>
                         <div className='flex p-3 space-x-3'>
-                            <Image
+                            <img
                                 src={session.user.image}
                                 alt='user-img'
                                 className='h-11 w-11 rounded-full cursor-pointer hover:brightness-90'

@@ -50,7 +50,7 @@ export default function Comment({ comment, commentId, originalPostId }) {
 
     return (
         <div className="flex p-3 border-b border-gray-200 pl-10">
-            <Image
+            <img
                 src={comment?.userImg}
                 alt="user-img"
                 className="h-9 w-9 rounded-full mr-4"
@@ -84,7 +84,7 @@ export default function Comment({ comment, commentId, originalPostId }) {
                     )}
 
                     {comment?.image && (
-                        <Image
+                        <img
                             src={comment?.image}
                             alt="comment-image"
                             className="rounded-2xl mr-2"
