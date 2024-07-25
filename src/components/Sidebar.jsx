@@ -11,7 +11,7 @@ export default function Sidebar() {
     const { data: session } = useSession();
 
     return (
-        <div className="flex flex-col justify-between fixed top-0 h-screen p-3">
+        <div className="flex flex-col justify-between h-screen p-3">
             <div className="flex flex-col gap-5 p-6">
                 <Link href="/">
                     <FaXTwitter className="w-16 h-16 cursor-pointer
