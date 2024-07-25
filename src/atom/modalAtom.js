@@ -1,4 +1,4 @@
-import {atom} from 'recoil';
+import { atom } from 'recoil';
 
 export const modalState = atom({
     key: 'modalState',
@@ -7,5 +7,5 @@ export const modalState = atom({
 
 export const postIdState = atom({
     key: 'postIdState',
-    default:'',
+    default: '',
 })

@@ -16,29 +16,29 @@ export const dynamic = 'force-dynamic';
 export default function RootLayout({ children }) {
   return (
     <SessionWrapper>
-    <html lang="en">
-      <body className={inter.className}>
-      <div className="flex justify-between max-w-6xl mx-auto">
-        <div className="hidden sm:inline border-r h-screen">
-         <Sidebar/>
-        </div>
-        <div className="w-2xl flex-1">
-          {children}
-        </div> 
-         <div className="border-l lg:flex-col p-3 h-screen hidden lg:flex w-[24rem]">
-          <div className="sticky top-0 bg-white py-2">
-            <input 
-            type="text"
-             placeholder="search"
-              className="bg-gray-50 border border-gray-100 rounded-3xl text-sm w-full px-4 py-2">
-            </input>
+      <html lang="en">
+        <body className={inter.className}>
+          <div className="flex justify-between max-w-6xl mx-auto">
+            <div className="hidden sm:inline border-r h-screen">
+              <Sidebar />
+            </div>
+            <div className="w-2xl flex-1">
+              {children}
+            </div>
+            <div className="border-l lg:flex-col p-3 h-screen hidden lg:flex w-[24rem]">
+              <div className="sticky top-0 bg-white py-2">
+                <input
+                  type="text"
+                  placeholder="search"
+                  className="bg-gray-50 border border-gray-100 rounded-3xl text-sm w-full px-4 py-2">
+                </input>
+              </div>
+              <News />
+            </div>
           </div>
-           <News/>
-         </div>          
-      </div>      
-      <CommentModal/>
-      </body>
-    </html>
+          <CommentModal />
+        </body>
+      </html>
     </SessionWrapper>
   );
 }
