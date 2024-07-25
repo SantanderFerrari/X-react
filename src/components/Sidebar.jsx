@@ -48,7 +48,8 @@ export default function Sidebar() {
             {
                 session && (
                     <div
-                        className=" p-3 absolute bottom-0 flex text-gray-700 text-sm items-center cursor-pointer hover:bg-slate-200 rounded-full transition-all duration-200">
+                        className="p-3 fixed bottom-0 left-0 w-full flex text-gray-700 text-sm items-center cursor-pointer hover:bg-slate-200 rounded-full transition-all duration-200"
+                    >
                         <img
                             src={session.user.image}
                             alt="user-img"
