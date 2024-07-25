@@ -50,7 +50,7 @@ export default function Icons({ id, uid }) {
                 try {
                     await deleteDoc(doc(db, 'posts', id));
                     console.log('Document successfully deleted');
-                    window.location.reload(); // Corrected method
+                    window.Location.reload(); // Corrected method
                 } catch (error) {
                     console.error('Error removing document: ', error);
                 }

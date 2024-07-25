@@ -88,8 +88,6 @@ export default function Input() {
         }
     };
 
-
-
     if (!session) return null;
 
     return (
